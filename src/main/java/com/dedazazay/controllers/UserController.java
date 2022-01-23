@@ -9,36 +9,36 @@ public class UserController {
 
     @GetMapping()
     public String allUsers() {
-        return null;
+        return "/list";
     }
 
     @GetMapping("/{id}")
     public String oneUser(int id) {
-        return null;
+        return "/show";
     }
 
     @GetMapping("/new")
     public String newUser(/* User user */) {
-        return null;
+        return "/new";
     }
 
     @PostMapping()
     public String createUser(/* User user */) {
-        return null;
+        return "redirect:/users";
     }
 
     @GetMapping("/{id}/edit")
     public String editUser(/* fields of User */) {
-        return null;
+        return "/edit";
     }
 
     @PatchMapping("/{id}")
     public String updateUser(/* some fields */) {
-        return null;
+        return "redirect:/users";
     }
 
     @DeleteMapping("/{id}")
     public String deleteUser() {
-        return null;
+        return "redirect:/users";
     }
 }
