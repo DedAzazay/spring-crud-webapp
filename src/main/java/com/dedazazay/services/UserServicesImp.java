@@ -19,26 +19,22 @@ public class UserServicesImp implements UserServices {
 
     @Override
     public List<User> list() {
-        return null;
+         return userDao.list();
     }
 
     @Override
     public User show(int id) {
-        return null;
+        return userDao.show(id);
     }
 
     @Override
     public void save(User user) {
-
+        userDao.save(user);
     }
 
-    @Override
-    public void update(int id, User updatedUser) {
-
-    }
 
     @Override
     public void delete(int id) {
-
+        userDao.delete(id);
     }
 }
