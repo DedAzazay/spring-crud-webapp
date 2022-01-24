@@ -1,7 +1,7 @@
 package com.dedazazay.controllers;
 
-import com.dedazazay.dao.UserDao;
 import com.dedazazay.model.User;
+import com.dedazazay.services.UserServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,22 +14,22 @@ import javax.validation.Valid;
 @RequestMapping("/users")
 public class UserController {
 
-    private final UserDao userDao;
+    private final UserServices userServices;
 
     @Autowired
-    public UserController(UserDao userDao) {
-        this.userDao = userDao;
+    public UserController(UserServices userServices) {
+        this.userServices = userServices;
     }
 
     @GetMapping()
     public String allUsers(Model model) {
-        model.addAttribute("users", userDao.list());
+        model.addAttribute("users", userServices.list());
         return "/list";
     }
 
     @GetMapping("/{id}")
     public String oneUser(@PathVariable("id") int id, Model model) {
-        model.addAttribute("users", userDao.show(id));
+        model.addAttribute("users", userServices.show(id));
         return "/show";
     }
 
@@ -44,29 +44,28 @@ public class UserController {
         if (bindingResult.hasErrors()) {
             return "/new";
         }
-        userDao.save(user);
+        userServices.save(user);
         return "redirect:/users";
     }
 
     @GetMapping("/{id}/edit")
     public String editUser(Model model, @PathVariable("id") int id) {
-        model.addAttribute("user", userDao.show(id));
+        model.addAttribute("user", userServices.show(id));
         return "/edit";
     }
 
     @PatchMapping("/{id}")
-    public String updateUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult,
-                             @PathVariable("id") int id) {
+    public String updateUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
         if (bindingResult.hasErrors()){
             return "/edit";
         }
-        userDao.update(id, user);
+        userServices.save(user);
         return "redirect:/users";
     }
 
     @DeleteMapping("/{id}")
     public String deleteUser(@PathVariable("id") int id) {
-        userDao.delete(id);
+        userServices.delete(id);
         return "redirect:/users";
     }
 }
