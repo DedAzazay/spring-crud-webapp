@@ -32,11 +32,6 @@ public class UserDaoImp implements UserDao{
         em.merge(user);
     }
 
-    @Override
-    @Transactional
-    public void update(int id, User updatedUser) {
-        em.merge(updatedUser);
-    }
 
     @Override
     @Transactional
